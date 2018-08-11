@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
     android:paddingBottom="@dimen/list_item_vertical_spacing"
     android:paddingEnd="@dimen/list_item_horizontal_spacing"
     android:paddingStart="@dimen/list_item_horizontal_spacing"
@@ -49,5 +52,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@drawable/ic_github" />
+
+    <include
+        layout="@layout/view_divider_horizontal"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tvRepoName" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

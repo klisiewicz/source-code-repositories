@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.fragment_repo_detail.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import pl.karollisiewicz.common.extension.imageFromUrl
 import pl.karollisiewicz.reposistory.R
 
 class RepoDetailFragment : Fragment() {
@@ -27,6 +28,7 @@ class RepoDetailFragment : Fragment() {
             toolbarLayout.title = repo.name
             tvOwnerName.text = repo.owner.name
             tvRepoDescription.text = repo.description
+            ivRepo.imageFromUrl(repo.owner.avatarUrl)
         })
     }
 }

@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.list_item_repo.view.*
+import pl.karollisiewicz.common.extension.circularImageFromUrl
 import pl.karollisiewicz.reposistory.R
 import pl.karollisiewicz.reposistory.domain.Repo
 import pl.karollisiewicz.reposistory.domain.Repo.Type.BIT_BUCKET
@@ -34,6 +35,7 @@ class RepoListAdapter(var repoSelectionListener: ((Repo) -> Unit) = {}) :
                 tvRepoName.text = repo.name
                 tvOwnerName.text = repo.owner.name
                 ivRepoType.setImageResource(repo.type.icon)
+                ivOwnerAvatar.circularImageFromUrl(repo.owner.avatarUrl)
                 setOnClickListener {
                     repoSelectionListener(repo)
                 }
