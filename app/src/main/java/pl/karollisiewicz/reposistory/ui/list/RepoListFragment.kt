@@ -7,11 +7,16 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.fragment_repo_list.*
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import pl.karollisiewicz.common.extension.isVisibleWhen
 import pl.karollisiewicz.reposistory.R
+import pl.karollisiewicz.reposistory.ui.detail.RepoDetailViewModel
 
 class RepoListFragment : Fragment() {
     private val repoListViewModel: RepoListViewModel by viewModel()
+    private val repoDetailsViewModel: RepoDetailViewModel by sharedViewModel()
+
     private val repoAdapter = RepoListAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -25,6 +30,10 @@ class RepoListFragment : Fragment() {
     }
 
     private fun setupList() {
+        repoAdapter.repoSelectionListener = { repo ->
+            repoDetailsViewModel.select(repo)
+        }
+
         with(repositories) {
             adapter = repoAdapter
             setHasFixedSize(true)
@@ -33,7 +42,10 @@ class RepoListFragment : Fragment() {
 
     private fun subscribeToViewModel() {
         repoListViewModel.getViewState().observe(viewLifecycleOwner, Observer {
+            progress isVisibleWhen it.isLoading
+            repositories isVisibleWhen it.hasData
             repoAdapter.submitList(it.repositories)
+//            contentLayout showMessage it.errorMessage
         })
     }
 }
