@@ -22,7 +22,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 private val dataModule = module {
-    single { RepoRestRepository(get(), get()) as RepoRepository }
+    single { RepoRestRepository(get(), get(), get()) as RepoRepository }
     single {
         pl.karollisiewicz.common.reactive.Schedulers(
             subscriber = Schedulers.newThread(),

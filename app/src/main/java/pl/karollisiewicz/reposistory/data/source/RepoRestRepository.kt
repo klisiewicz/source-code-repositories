@@ -1,24 +1,42 @@
 package pl.karollisiewicz.reposistory.data.source
 
 import io.reactivex.Observable
+import io.reactivex.functions.BiFunction
 import pl.karollisiewicz.common.extension.applySchedulers
 import pl.karollisiewicz.common.reactive.Schedulers
+import pl.karollisiewicz.reposistory.data.source.bitbucket.BitBucketRepos
+import pl.karollisiewicz.reposistory.data.source.bitbucket.BitbucketService
 import pl.karollisiewicz.reposistory.data.source.github.GithubRepo
 import pl.karollisiewicz.reposistory.data.source.github.GithubService
 import pl.karollisiewicz.reposistory.domain.Repo
+import pl.karollisiewicz.reposistory.domain.Repo.Type.BIT_BUCKET
 import pl.karollisiewicz.reposistory.domain.Repo.Type.GITHUB
 import pl.karollisiewicz.reposistory.domain.RepoRepository
 
+typealias Repos = Collection<Repo>
+
 class RepoRestRepository(
     private val githubService: GithubService,
+    private val bitbucketService: BitbucketService,
     private val schedulers: Schedulers
 ) : RepoRepository {
 
-    override fun fetchAll(): Observable<Collection<Repo>> {
-        return githubService
+    override fun fetchAll(): Observable<Repos> {
+        val githubObservable = githubService
             .fetchAll()
             .map { it.toRepos() }
-            .applySchedulers(schedulers)
+
+        val bitbucketObservable = bitbucketService
+            .fetchAll()
+            .map { it.toRepos() }
+
+        return Observable.zip(
+            githubObservable,
+            bitbucketObservable,
+            BiFunction<Repos, Repos, Repos> { github, bitbucket ->
+                github.union(bitbucket)
+            }
+        ).applySchedulers(schedulers)
     }
 }
 
@@ -30,3 +48,10 @@ private fun Collection<GithubRepo>.toRepos(): Collection<Repo> = this.map {
     )
 }
 
+private fun BitBucketRepos.toRepos(): Collection<Repo> = repos.map {
+    Repo(
+        id = "${it.owner.id}-${it.name}", name = it.name, owner = Repo.Owner(
+            name = it.owner.name, avatarUrl = it.owner.links.avatar.href
+        ), description = it.description, type = BIT_BUCKET
+    )
+}

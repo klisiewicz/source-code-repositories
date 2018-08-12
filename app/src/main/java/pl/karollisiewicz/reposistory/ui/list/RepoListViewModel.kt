@@ -2,13 +2,13 @@ package pl.karollisiewicz.reposistory.ui.list
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import pl.karollisiewicz.common.reactive.ReactiveViewModel
 import pl.karollisiewicz.reposistory.domain.Repo
 import pl.karollisiewicz.reposistory.domain.RepoRepository
 
 class RepoListViewModel(
     private val repository: RepoRepository
-) : ViewModel() {
+) : ReactiveViewModel() {
     private var viewState: MutableLiveData<RepoListViewState>? = null
 
     fun getViewState(): LiveData<RepoListViewState> {
@@ -25,6 +25,7 @@ class RepoListViewModel(
             .doOnNext { createDataState(it) }
             .doOnError { createErrorState(it) }
             .subscribe()
+            .enqueueForDisposal()
     }
 
     private fun createLoadingState() {
