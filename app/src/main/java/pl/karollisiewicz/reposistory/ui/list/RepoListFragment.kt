@@ -85,15 +85,17 @@ class RepoListFragment : Fragment() {
     }
 
     private fun showSortDialog() {
-        MaterialDialog.Builder(context!!)
-            .title("Sort by")
-            .items(RepoSortOrder.values().toList())
-            .itemsCallbackSingleChoice(repoListViewModel.sortOrder.ordinal) { _, _, which, _ ->
-                repoListViewModel.sortOrder = RepoSortOrder.values()[which]
-                true
-            }
-            .positiveText(getString(R.string.ok))
-            .negativeText(getString(R.string.cancel))
-            .show()
+        context?.let {
+            MaterialDialog.Builder(it)
+                .title("Sort by")
+                .items(RepoSortOrder.values().toList())
+                .itemsCallbackSingleChoice(repoListViewModel.sortOrder.ordinal) { _, _, which, _ ->
+                    repoListViewModel.sortOrder = RepoSortOrder.values()[which]
+                    true
+                }
+                .positiveText(getString(R.string.ok))
+                .negativeText(getString(R.string.cancel))
+                .show()
+        }
     }
 }
