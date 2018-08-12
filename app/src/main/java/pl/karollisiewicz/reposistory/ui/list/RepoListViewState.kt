@@ -1,11 +1,12 @@
 package pl.karollisiewicz.reposistory.ui.list
 
+import androidx.annotation.StringRes
 import pl.karollisiewicz.reposistory.domain.Repo
 
-class RepoListViewState(
+data class RepoListViewState(
     val isLoading: Boolean = false,
     val repositories: List<Repo> = emptyList(),
-    val error: String? = null
+    @StringRes val errorMessageId: Int? = null
 ) {
     val hasData: Boolean = repositories.isNotEmpty()
 }
