@@ -48,7 +48,7 @@ class RepoListFragment : Fragment() {
             progress isVisibleWhen it.isLoading
             repositories isVisibleWhen it.hasData
             repoAdapter.submitList(it.repositories)
-//            contentLayout showMessage it.errorMessage
+//            contentLayout showMessage it.error
         })
     }
 }
