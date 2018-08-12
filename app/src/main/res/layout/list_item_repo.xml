@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:paddingBottom="@dimen/list_item_vertical_spacing"
+    android:paddingEnd="@dimen/list_item_horizontal_spacing"
+    android:paddingStart="@dimen/list_item_horizontal_spacing"
+    android:paddingTop="@dimen/list_item_vertical_spacing">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivOwnerAvatar"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/ic_launcher_foreground" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvRepoName"
+        style="@style/TextAppearance.MaterialComponents.Subtitle1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/list_item_horizontal_spacing"
+        android:layout_marginStart="@dimen/list_item_horizontal_spacing"
+        app:layout_constraintEnd_toStartOf="@id/ivRepoType"
+        app:layout_constraintStart_toEndOf="@id/ivOwnerAvatar"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Sample repository name" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvOwnerName"
+        style="@style/TextAppearance.MaterialComponents.Caption"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/tvRepoName"
+        app:layout_constraintStart_toStartOf="@id/tvRepoName"
+        app:layout_constraintTop_toBottomOf="@id/tvRepoName"
+        tools:text="Owner" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivRepoType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/ic_github" />
+
+    <include
+        layout="@layout/view_divider_horizontal"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tvRepoName" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
