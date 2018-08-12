@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Repository</string>
+    <string name="repositories">Repositories</string>
+    <string name="menu_sort_repo">Sort</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="retry">Retry</string>
+    <string name="error_network">Communication error</string>
+    <string name="error_unknown">Unknown error</string>
 </resources>

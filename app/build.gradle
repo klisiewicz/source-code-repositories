@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
@@ -12,7 +13,10 @@ android {
         versionCode 1
         versionName "1.0"
         vectorDrawables.useSupportLibrary true
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "GITHUB_API_URL", '"https://api.github.com/"'
+        buildConfigField "String", "BITBUKET_API_URL", '"https://api.bitbucket.org/2.0/"'
     }
 
     buildTypes {
@@ -30,13 +34,32 @@ android {
 }
 
 dependencies {
+    kapt "com.github.bumptech.glide:compiler:$glideVersion"
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
-    implementation "androidx.appcompat:appcompat:$androidXVersion"
-    implementation "com.google.android.material:material:$androidXVersion"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
+    implementation "androidx.appcompat:appcompat:$supportLibraryVersion"
+    implementation "androidx.recyclerview:recyclerview:$supportLibraryVersion"
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
+    implementation "android.arch.navigation:navigation-fragment-ktx:$navigationVersion"
+    implementation "android.arch.navigation:navigation-ui-ktx:$navigationVersion"
+    implementation "com.google.android.material:material:$supportLibraryVersion"
+    implementation "org.koin:koin-androidx-viewmodel:$koinVersion"
+    implementation "com.github.bumptech.glide:glide:$glideVersion"
+    implementation "jp.wasabeef:glide-transformations:$glideTransformVersion"
+    implementation "com.afollestad.material-dialogs:core:$materialDialogVersion"
+    implementation("com.squareup.retrofit2:retrofit:$retrofitVersion") {
+        exclude module: 'okhttp'
+    }
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
+    implementation "com.squareup.okhttp3:okhttp:$okHttpVersion"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxJavaVersion"
 
     testImplementation "junit:junit:$junitVersion"
+    testImplementation "androidx.arch.core:core-testing:$lifecycleVersion"
     androidTestImplementation "androidx.test:runner:$runnerVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
+    androidTestImplementation "android.arch.navigation:navigation-testing-ktx:$navigationVersion"
 }
