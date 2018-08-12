@@ -12,6 +12,7 @@ import pl.karollisiewicz.reposistory.domain.Repo
 import pl.karollisiewicz.reposistory.domain.Repo.Type.BIT_BUCKET
 import pl.karollisiewicz.reposistory.domain.Repo.Type.GITHUB
 import pl.karollisiewicz.reposistory.domain.RepoRepository
+import java.util.concurrent.TimeUnit.SECONDS
 
 typealias Repos = Collection<Repo>
 
@@ -31,12 +32,13 @@ class RepoRestRepository(
             .map { it.toRepos() }
 
         return Observable.zip(
-            githubObservable,
             bitbucketObservable,
+            githubObservable,
             BiFunction<Repos, Repos, Repos> { github, bitbucket ->
                 github.union(bitbucket)
-            }
-        ).applySchedulers(schedulers)
+            })
+            .timeout(5, SECONDS)
+            .applySchedulers(schedulers)
     }
 }
 
