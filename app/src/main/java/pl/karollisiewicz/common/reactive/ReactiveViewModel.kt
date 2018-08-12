@@ -7,12 +7,12 @@ import io.reactivex.disposables.Disposable
 abstract class ReactiveViewModel : ViewModel() {
     private val disposable = CompositeDisposable()
 
-    override fun onCleared() {
-        super.onCleared()
-        disposable.dispose()
+    protected fun Disposable.enqueueForDisposal() {
+        disposable.add(this)
     }
 
-    protected fun Disposable.enqueueForDisposal() {
+    override fun onCleared() {
+        super.onCleared()
         disposable.dispose()
     }
 }

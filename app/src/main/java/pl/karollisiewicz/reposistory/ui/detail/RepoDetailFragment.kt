@@ -10,6 +10,7 @@ import kotlinx.android.synthetic.main.fragment_repo_detail.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import pl.karollisiewicz.common.extension.imageFromUrl
 import pl.karollisiewicz.reposistory.R
+import androidx.appcompat.app.AppCompatActivity
 
 class RepoDetailFragment : Fragment() {
     private val repoDetailsViewModel: RepoDetailViewModel by sharedViewModel()
@@ -25,8 +26,8 @@ class RepoDetailFragment : Fragment() {
 
     private fun subscribeToViewModel() {
         repoDetailsViewModel.getSelected().observe(viewLifecycleOwner, Observer { repo ->
-            toolbarLayout.title = repo.name
-            tvOwnerName.text = repo.owner.name
+            tvRepoName.text = repo.name
+            toolbarLayout.title = repo.owner.name
             tvRepoDescription.text = repo.description
             ivRepo.imageFromUrl(repo.owner.avatarUrl)
         })
