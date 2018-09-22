@@ -6,7 +6,7 @@ buildscript {
         minSdkVersion = 21
         targetSdkVersion = 28
 
-        constraintLayoutVersion = '1.1.2'
+        constraintLayoutVersion = '1.1.3'
         espressoVersion = '3.1.0-alpha1'
         glideVersion = '4.4.0'
         glideTransformVersion = '3.3.0'
@@ -20,7 +20,7 @@ buildscript {
         retrofitVersion = '2.3.0'
         rxJavaVersion = '2.0.2'
         runnerVersion = '1.1.0-alpha1'
-        supportLibraryVersion = '1.0.0-rc01'
+        supportLibraryVersion = '1.0.0-rc02'
     }
 
     repositories {

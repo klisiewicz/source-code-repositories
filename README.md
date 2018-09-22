@@ -1,5 +1,10 @@
 # Soruce Code Repositories
 
+## Screenshots
+
+![Repository list](/screenshots/repository-list.png "Repository list")
+![Repository details](/screenshots/repository-detail.png "Repository details")
+
 ## Built With
 
 * [Kotlin](https://github.com/JetBrains/kotlin)
