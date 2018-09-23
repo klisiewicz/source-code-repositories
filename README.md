@@ -1,5 +1,7 @@
 # Soruce Code Repositories
 
+This application allows to view repositories from Bitbucket and GitHub services.
+
 ## Screenshots
 
 ![Repository list](/screenshots/repository-list.png "Repository list")
